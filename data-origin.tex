@@ -42,16 +42,16 @@ Alberto Accomazzi (ADS), Anne Catherine Raugh (University of Maryland), Rafaele 
 
 \section{Introduction}
 
-Information on the origin of a piece of data is important for end users to understand data, for meaningful data citation and to improved their reusability.  It is a part of provenance, which in turn is as a mandatory criterion in the GOFair\footnote{https://www.go-fair.org/} or RDA FAIR definition\footnote{https://doi.org/10.15497/rda00050}.
+Information on the origin of a piece of data is important for end users to understand data, for meaningful data citation and to improve reusability.  It is a part of provenance, which in turn is as a mandatory criterion in the GOFair\footnote{https://www.go-fair.org/} or RDA FAIR definition\footnote{https://doi.org/10.15497/rda00050}.
 
-The Virtual Observatory (VO) provides an advanced framework to search for, query, and consume astronomical data.  The specification of Data Origin proposed here for VOTable output include both metadata originating at the data producer (e.g, author, space agency, observatory) and at the data centre (publisher) hosting the resource.
+The Virtual Observatory (VO) provides an advanced framework to search for, query, and consume astronomical data.  The specification of Data Origin proposed here for VOTable output includes both metadata originating at the data producer (e.g, author, space agency, observatory) and at the data centre (publisher) hosting the resource.
 
-At this point, depending of the implementation, users can find the information conveyed in Data Origin in the data centre web pages (landing pages) or in the VO Registry.  For citation, the ADS (NASA Astrophysics Data System) offers comprehensive bibliographic capabilities, including the production of BibTeX records for publications known to ADS.  However, there are no VO standards to communicate this type of information yet.
+At this point, depending on the implementation, users can find the information conveyed in Data Origin in the data centre web pages (landing pages) or in the VO Registry.  For citation, the ADS (NASA Astrophysics Data System) offers comprehensive bibliographic capabilities, including the production of BibTeX records for publications known to ADS.  However, there are standards for how to locate these types of information, and often it is not available machine-readably.
 
-A list of basic added metadata, reliably findable in a convenient location (i.e.,
+A list of basic data origin metadata, reliably findable in a convenient location (i.e.,
 the VOTable produced by a query) will help users to properly cite or
 acknowledge the data resources contributing to new or derived works.
-Tracing Data Origin, from the producer of the query to the production of the response, also allows an end users to determine the different agents implied in data preservation (authors, data centre, space agencies, journal), which is particularly helpful when debugging.  A typical scenario here is when mirrored data is the subject to potentially differing curation actions in the different publication processes.
+Tracing Data Origin, from the producer of the query to the production of the response, also allows an end user to determine the different agents that contribute to data curation (authors, data centre, space agencies, journal), which is particularly helpful when debugging.  A typical scenario here is when mirrored data is the subject to potentially differing curation actions in the different publication processes.
 
 The list of metadata items proposed here is designed to meet the needs of basic provenance
 tracking when using current VO protocols.\\
@@ -63,8 +63,8 @@ The core of the specification is in
 section~\ref{sec:data-origin-in-votable}, which
 describes the VOTable serialisation.
 
-To complete the picture, the document includes in appendixes, a mapping of Data Origin items with the IVOA Registry schema (see appendix~\ref{sec:appendixB})
-and a citation example (appendix \ref{sec:appendixC}) that illustrates how this information can be used.
+Non-normatively, in appendix~\ref{sec:appendixB}, we give a mapping of Data Origin items to entities from the IVOA Registry schema, and a citation template in appendix \ref{sec:appendixC}
+that illustrates how data origin information can be used in practice.
 
 
 
@@ -72,7 +72,7 @@ and a citation example (appendix \ref{sec:appendixC}) that illustrates how this 
 
 \subsection{Data Origin information}
 
-Scenario: Researchers have data in a VOTable that shows an odd feature. They would now like investigate whether that feature is physical or an artefact.
+Scenario: Researchers have data in a VOTable that shows an odd feature. They would now like to investigate whether that feature is physical or an artefact.
 
 Derived requirements:
 
@@ -84,7 +84,7 @@ Derived requirements:
 \item When data provided by the service is derived from external resources, those external resources are clearly identified.  In that case, additional curation applied by the publisher can be detected.
 \end{itemize}
 
-For instance, a table published in a journal or by a space agency is also hosted in multiple data centre. The details of the table schema may depend on the data centre, which can add associated data, enrich metadata, or make a sub-selection of columns.
+For instance, a table published in a journal or by a space agency may also be hosted in multiple data centres. The details of the table schema may depend on the data centre, which can add associated data, enrich metadata, or make a sub-selection of columns.
 
 
 \subsection{Reproducibility}
@@ -126,9 +126,9 @@ might be useful.
 
 \section{State of the Art}
 
-Neither VOTable \citep{2019ivoa.spec.1021O} nor IVOA data access protocols at this point provide standard facilities for conveying Data Origin information. While protocols such as TAP \citep{2019ivoa.spec.0927D} have standard interfaces to retrieve table metadata (e.g., unit, type and description of columns) or metadata on service endpoints (``capabilities'') by virtue of providing VOSI \citep{2017ivoa.spec.0524G} endpoints, for basic metadata like authors or publication dates,  clients have to consult the VO Registry.  Even that may be difficult, because there is not even a standard way to obtain an identifier from a service itself.
+Neither VOTable \citep{2019ivoa.spec.1021O} nor IVOA data access protocols at this point provide standard facilities for conveying Data Origin information. While protocols such as TAP \citep{2019ivoa.spec.0927D} have standard interfaces to retrieve table metadata (e.g., unit, type and description of columns) or metadata on service endpoints (``capabilities'') by virtue of providing VOSI \citep{2017ivoa.spec.0524G} endpoints, for basic metadata like authors or publication dates,  clients have to consult the VO Registry.  Even that may be difficult, because you cannot in general obtain its IVOA identifier from a service itself.
 
-HiPS \citep{2017ivoa.spec.0519F} is a more recent protocol which includes for each Dataset a list of standardized metadata. HiPS metadata includes authors, publication year, data centre identifier or licenses.
+HiPS \citep{2017ivoa.spec.0519F} is a more recent protocol which includes for each dataset a list of standardized metadata. HiPS metadata includes authors, publication year, data centre identifier or licenses.
 
 \begin{figure}
 \centering
@@ -151,10 +151,8 @@ VOResource \citep{2018ivoa.spec.0625P} and VODataService
 The Registry makes this information available through several interfaces, partly
 hosted by the data centres themselves, partly provided by a central
 infrastructure.
-The VO Registry is an open framework without any moderators.
-The IVOA hence does not guarantee the resources' continued availability.
-In consequence, there are no guarantees as to the continued availability
-of any metadata in central IVOA infrastructure; the Registry is
+Since the VO Registry is an open framework without any central curators,
+there are no guarantees as to the continued availability or the resources or even their descriptions; the Registry is
 specifically \emph{not} designed as a persistent metadata repository
 that artefacts could reliably refer to as metadata sources.
 
@@ -178,18 +176,19 @@ DataCite's.
 
 The Provenance Data Model \citep{2020ivoa.spec.0411S} is based on Entities, Agents and Activities as defined in the W3C Provenance model. The model's main focus is the detailed documentation of workflows.
 
-For the serialisation of ProvDM instances within VOTables, MIVOT \citep{2023ivoa.spec.0620M} is available.  At this point, however, the relatively complex model and many free parameters (for instance: serialisation) are obstacles for a wide and direct adoption of ProvDM+MIVOT to represent Data Origin, in particular when compared to the very straightforward mechanisms proposed here.
+For the serialisation of ProvDM instances within VOTables, MIVOT \citep{2023ivoa.spec.0620M} is available.  At this point, however, the relatively complex model and many free parameters are obstacles for a wide and direct adoption of ProvDM+MIVOT to represent Data Origin, in particular when compared to the very straightforward mechanisms proposed here.
 
 
 %``Last-Step-Provenance'' is a Provenance extension currently under discussion which would define a list of metadata corresponding to Data Origin.  Its output will not be recursive and could be easily serialized in a table.\todo{If we write this here, everyone will ask: Well, so why don't we wait for that?  Perhaps we ought to just drop this?}
-Other initiatives, in working progress, such as ``DatasetDM'', or 
-``Last-Step-Provenance'' show the growing interest of adding a piece of 
-Provenance. The metadata listed in Data Origin can be a reference for current
+Other initiatives, in working progress, such as ``DatasetDM'', or
+``Last-Step-Provenance'' show the growing interest of adding pieces of
+provenance to published datasets.
+The metadata listed in Data Origin can be a reference for current
 and future models interested by the information.
 
 \subsection{DALI}
 DALI \citep{2017ivoa.spec.0517D} defines common conventions for all
-modern IVOA data access protocols.  
+modern IVOA data access protocols.
 %A part of it defines in-band signalling of error conditions or overflows  -- an important part of Data Origin -- for VOTables.
 
 It also defines bespoke names for \xmlel{INFO} elements used to convey
@@ -316,7 +315,7 @@ defined here.
 \textbf{\vrule width0pt height 12pt depth 7pt Key} & \textbf{Description} & \textbf{Level} & \textbf{Dublin Core}\\ \hline
 % removed 23-nov-2023 publication\_id    & Dataset identifier that can be used for citation& M  & identifier\\ \hline
 citation    & Dataset identifier that can be used for citation (e.g. dataset DOI) & R  & identifier\\ \hline
-reference\_url     & Dataset landing page & & \\ \hline % previously landing_page 
+reference\_url     & Dataset landing page & & \\ \hline % previously landing_page
 % removed in 23-nov-2023
 %curation\_level    & Controled vocabulary
 %                   (IVOA rdf, content\_level) &  &  \\ \hline
@@ -579,8 +578,8 @@ using Simple Cone Search 1.03 (version 7.294, executed at 2022-10-30)
   \textit{publication\_id} becomes \textit{citation} (DALI)
   \textit{landing\_page} becomes \textit{reference\_url} (VOResource)
   \textit{relation\_type} and \textit{related\_resource} to specific relation : \textit{cites} and \textit{is\_derived\_from} (VOResource)
-\item Remove \textit{curation\_level}, 
-      \textit{request\_post}, 
+\item Remove \textit{curation\_level},
+      \textit{request\_post},
       \textit{rights\_type}
 \item New item: \textit{original\_date}, \textit{article}
 \item Clarify date items and multiple INFO in VOTable.
