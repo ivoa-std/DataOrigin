@@ -274,7 +274,6 @@ particularly important.
 publisher         & Data centre that produced the VOTable & R & publisher\\ \hline
 %rename 23-nov-2023 version           & Software version (*) & & \\ \hline
 server\_software  & Software version (*) & & \\ \hline
-service\_ivoid    & IVOID of the service through which the data was retrieved  & R &  \\ \hline
 service\_protocol & IVOID of the protocol through which the data was
 retrieved& R& \\ \hline
 request           & Full request URL including a query string (**)&  R& \\ \hline
@@ -284,6 +283,7 @@ query             & An input query in a formal language (e.g, ADQL) &  & \\ \hli
 % end
 request\_date     & Query execution date & R&\\ \hline
 contact           & Email or URL to contact publisher & & \\ \hline
+ivoid\_service    & IVOID of the service through which the data was retrieved  & R &  \\ \hline
 \multicolumn{4}{p{\textwidth}}{\vskip 2pt\footnotesize(*) Operators are
 encouraged to follow \citet{note:opid} in this item} \\
 \multicolumn{4}{p{\textwidth}}{\footnotesize(**) For ``Simple''
@@ -575,7 +575,7 @@ using Simple Cone Search 1.03 (version 7.294, executed at 2022-10-30)
 %\subsection{Data Origin in the VO Version 1.0}
 \subsection{Difference between versions 1.1 and 1.2}
 \begin{itemize}
-	\item New item: \textit{service\_ivoid}
+	\item New item: \textit{ivoid\_service}
 	\item Move ivoid from Table1 (query) to Table2 (Origin)
 \end{itemize}
 
