@@ -232,7 +232,7 @@ The metadata listed below combines terms from DALI \citep{2017ivoa.spec.0517D}, 
 While it is desirable that publishers provide the full set of
 metadata, 
 %we consider the following items the minimally viable set:
-we consider the following items as having the  most impact (for reuse, citation):
+we consider the following items as having the highest impact (for reuse or citation):
 ivoid, publisher, service\_protocol, request, request\_date,
 citation, resource\_version, rights\_uri, creator, publication\_date,
 last\_update\_date.
@@ -253,19 +253,19 @@ particularly important.
 \begin{tabular}{|l|>{\raggedright}p{7cm}|l|}  \hline
 \textbf{\vrule width0pt height 12pt depth 7pt Key} & \textbf{Description} & \textbf{Dublin Core}\\ \hline
 % removed ivoid             & IVOID of underlying data collection  & R &  \\ \hline
-publisher         & Data centre that produced the VOTable \textit{(recommended metadata)}& publisher\\ \hline
+publisher         & Data centre that produced the VOTable & publisher\\ \hline
 %rename 23-nov-2023 version           & Software version (*) & & \\ \hline
 server\_software  & Software version (*) & \\ \hline
 service\_protocol & IVOID of the protocol through which the data was
-retrieved \textit{(recommended metadata)}& \\ \hline
-request           & Full request URL including a query string (**) \textit{(recommended metadata)}& \\ \hline
+retrieved & \\ \hline
+request           & Full request URL including a query string (**)& \\ \hline
 query             & An input query in a formal language (e.g., ADQL)  & \\ \hline
 % removed in 23-nov-2023
 %request\_post     & (POST Request) POST arguments &  & \\ \hline
 % end
-request\_date     & Query execution date \textit{(recommended metadata)}&\\ \hline
+request\_date     & Query execution date &\\ \hline
 contact           & Email or URL to contact publisher & \\ \hline
-ivoid\_service    & IVOID of the service through which the data was retrieved \textit{(recommended metadata)} &  \\ \hline
+ivoid\_service    & IVOID of the service through which the data was retrieved  &  \\ \hline
 \multicolumn{3}{p{\textwidth}}{\vskip 2pt\footnotesize(*) Operators are
 encouraged to follow \citet{note:opid} in this item.} \\
 \multicolumn{3}{p{\textwidth}}{\footnotesize(**) For ``Simple''
@@ -299,24 +299,26 @@ defined here.
 \begin{tabular}{|l|>{\raggedright}p{7cm}|l|}  \hline
 \textbf{\vrule width0pt height 12pt depth 7pt Key} & \textbf{Description} & \textbf{Dublin Core}\\ \hline
 % removed 23-nov-2023 publication\_id    & Dataset identifier that can be used for citation& M  & identifier\\ \hline
-ivoid              & IVOID of underlying data collection  \textit{(recommended metadata)} &  \\ \hline
-citation           & Dataset identifier that can be used for citation (e.g. dataset DOI) \textit{(recommended metadata)}  & identifier\\ \hline
+ivoid              & IVOID of underlying data collection   &  \\ \hline
+citation           & Dataset identifier that can be used for citation (e.g. dataset DOI)   & identifier\\ \hline
 reference\_url     & Dataset landing page & \\ \hline % previously landing_page
 % removed in 23-nov-2023
 %curation\_level    & Controled vocabulary
 %                   (IVOA rdf, content\_level) &  &  \\ \hline
 % end
 % modifier 23-nov-2023 resource\_version  & Dataset version or last release & R & \\ \hline
-resource\_version  & Dataset version  \textit{(recommended metadata)} & \\ \hline
+resource\_version  & Dataset version   & \\ \hline
 %rename 23-nov-2023 rights             & (*) Licence URI & R & rights\\ \hline
-rights\_uri        & Licence URI (*) \textit{(recommended metadata)} & rights\\ \hline
+rights\_uri        & Licence URI (*)  & rights\\ \hline
 % removed 23-nov-2023 rights\_type       & (*) Licence type (eg: CC-by, CC-0, private, public) &  &  \\ \hline
 %rename 23-nov-2023 copyrights         & Copyright text &  & \\ \hline
 rights             & Licence or Copyright text  & rights\\ \hline
 creator            & \raggedright The person(s) mainly involved in the
 creation of the resource; generally, the author(s)
-                   \textit{(recommended metadata)} & creator\\ \hline
-editor             & Editor name (article) & \\ \hline
+                    & creator\\ \hline
+editor             & Designation of the medium the originating scholarly publication was
+  published in.  In general, that is a journal name.  Common
+  abbreviations (ApJ, A\&A, \dots) are encouraged. & \\ \hline
 % removed 15-dec-2023 to use cites or is_derived_from
 %relation\_type     & An identifier of a second resource and its relationship to the
 %                     present resource.
@@ -335,8 +337,8 @@ is\_derived\_from  & An Identifier (ivoid, DOI, bibcode) of a resource
 %resource\_date     & Date of the original publication (DALI timestamp) & R & date\\ \hline
 %
 original\_date     & Date of the original resource from which the present resource is derived (DALI timestamp) &  \\ \hline
-publication\_date  & Date of first publication in the data centre  (DALI timestamp) (***) \textit{(recommended metadata)}&  \\ \hline
-last\_update\_date & Last data centre update (DALI timestamp) (****)  \textit{(recommended metadata)} & date\\ \hline
+publication\_date  & Date of first publication in the data centre  (DALI timestamp) (***) &  \\ \hline
+last\_update\_date & Last data centre update (DALI timestamp) (****)  & date\\ \hline
 \multicolumn{3}{p{\textwidth}}{\vskip2pt\footnotesize(*) Following Registry
 practice, this should come from
 SPDX \url{https://spdx.org/licenses/}, though Creative Commons URLs
@@ -560,7 +562,8 @@ We extract data published in bibcode:2021AJ....161...36B (Bryson S., 2021),
 via CDS services (ivoa resource=ivo://cds.vizier/j/aj/161/36, 2021-03-16)
 using Simple Cone Search 1.03 (version 7.294, executed at 2022-10-30)\\
 
-\textbf{Example}: APA style \\
+\textbf{Example}: we can construct a citation (in APA style) from data-origin. However, we emphasise that ADS remain the standard for citation.\\
+
 "APA: <creator> (<publication\_date>). <title> [Dataset]. <publisher>. <citation>
 
 
