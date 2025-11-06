@@ -228,6 +228,16 @@ directly into the VO output is desirable
 \label{sec:data-origin-in-votable}
 The metadata listed below combines terms from DALI \citep{2017ivoa.spec.0517D}, Dublin Core \citep{std:DUBLINCORE} and extensions in order to provide Data Origin information to end users.
 
+\paragraph{Note about the following items.} 
+While it is desirable that publishers provide the full set of
+metadata, 
+%we consider the following items the minimally viable set:
+we consider the following items as having the  most impact (for reuse, citation):
+ivoid, publisher, service\_protocol, request, request\_date,
+citation, resource\_version, rights\_uri, creator, publication\_date,
+last\_update\_date.
+
+
 \subsection{Query information}
 Table~\ref{tab:query-names} lists the metadata items defined here to
 convey query-related information in Data Origin.
@@ -236,6 +246,7 @@ These pieces of information enable linking Registry records to the
 current result and, to some extent, reproducing the query executed.
 For queries against evolving datasets, the request\_date item clearly is
 particularly important.
+
 
 \begin{table}
 \hbox to\textwidth{\hss
@@ -429,49 +440,66 @@ Expected metadata (VOResource) with their equivalent in Datacite schema (version
 
 %\begin{table}
 \label{tab:voresourcemapping}
-\begin{tabular}{|p{3cm}|p{3cm}|p{3cm}|p{5cm}|} \hline
-\textbf{VOResource} & \textbf{Data Origin} & \textbf{DataCite} & \textbf{Explain} \\ \hline
-identifier    &ivoid & Identifier & ivoid of resource(s) hosted by the service\\ \hline
-title         & & Title& resource title\\ \hline
-shortName     &&& Resource short name\\ \hline
-altIdentifier &  & AlternateIdentifier&
-              Alternate identifier accepts bibcode, DOI or URL. DOI should be privileged to facilitate citation and link with DataCite or Crossref..eg: DOI \\ \hline
+
+The following table is a non-normative crosswalk for metadata
+concepts between the VO Registry (VOResource and VODataService)
+\footnote{This is not a full mapping of VOResource to DataCite.  To the extent
+	this is possible (i.e., without having to mint DOIs), the XSLT at
+	https://github.com/ivoa/vor-doi gives such a mapping.}
+, data origin, and DataCite.  It is
+intended to simplify the implementation of data origin for
+publishers that already have machine-readable resource descriptions
+available. 
+
+\paragraph{}
+% 2025-11-06 gilles/Markus remove data_origin empty cells
+
+\begin{tabular}{|p{2.8cm}|p{3cm}|p{3cm}|p{4cm}|} \hline
+\textbf{VO Registry} & \textbf{Data Origin} & \textbf{DataCite} & \textbf{Explanation} \\ \hline
+identifier    &ivoid & Identifier & The ivoid of resource(s) hosted by the service\\ \hline
+%title         & & Title& The resource title\\ \hline
+%shortName     &&& The short name of the resource\\ \hline
+%altIdentifier &  & AlternateIdentifier&
+%              Alternate identifier accepts bibcode, DOI or URL. DOI should be privileged to facilitate   cross identification \\ \hline
 \end{tabular}
 
-\begin{tabular}{|p{3cm}|p{3cm}|p{3cm}|p{5cm}|} \hline
+\paragraph{}
+\begin{tabular}{|p{2.8cm}|p{3cm}|p{3cm}|p{4cm}|} \hline
 \multicolumn{4}{|l|}{\textbf{curation}} \\ \hline
-publisher     & publisher & Publisher &publisher (*)\\ \hline
-creator       & creator & Creator & author(s) (*)\\ \hline
-contributor   & & Contributor & contributor(s) (*)\\ \hline
-date [Created]&  publication\_date  & Dates [created] & creation date (in data centre)\\ \hline
-date [Updated]&  last\_update\_date & Dates [updated] & last modification\\ \hline
-  ?           &  original\_date & PublicationYear & publication year in data centre\\ \hline
+publisher     & publisher & Publisher & The publisher (*)\\ \hline
+creator       & creator & Creator & The author(s) (*)\\ \hline
+%contributor   & & Contributor & The contributor(s) (*)\\ \hline
+date [Created]&  publication\_date  & Dates [created] & The creation date (in data centre)\\ \hline
+date [Updated]&  last\_update\_date & Dates [updated] & The date of the last modification\\ \hline
+  ?           &  original\_date & PublicationYear & The year of publication in data centre\\ \hline
 version       & resource\_version & Version &\\ \hline
 contact       & contact &&\\ \hline
 \multicolumn{4}{l}{\small \footnotesize(*) terms allowing name and Orcid (\xmlel{altIdentifier} in VOResurce)} \\
 \end{tabular}
 
-\begin{tabular}{|p{3cm}|p{3cm}|p{3cm}|p{5cm}|} \hline
+\paragraph{}
+\begin{tabular}{|p{2.8cm}|p{3cm}|p{3cm}|p{4cm}|} \hline
 \multicolumn{4}{|l|}{\textbf{content} } \\ \hline
-source        & article & RelatedIdentifier (*) & bibcode\\ \hline
-referenceURL  & reference\_url &  & Landing page \\ \hline
-type          &  & ResourceType & Resource type (catalog, etc)\\ \hline
-description   &  & Description  & Abstract\\ \hline
-relationShip  &   & RelatedIdentifiers &Link to remote resource (Recommended to link Original data centre) \\ \hline
-relationshipType & cites, is\_derived\_from & relationType &\\ \hline
+source        & article & RelatedIdentifier (*) & The Reference article (bibcode or DOI)\\ \hline
+referenceURL  & reference\_url &  & The landing page URL\\ \hline
+%type          &  & ResourceType & The Resource type (catalog, etc)\\ \hline
+%description   &  & Description  & Usually, it is the abstract\\ \hline
+%relationship  &   & RelatedIdentifiers & The Link to remote resource (it is recommended to link Original data centre) \\ \hline
+relationshipType & cites, is\_derived\_from & relationType &\\  \hline
 relatedResource  & cites, is\_derived\_from & RelatedIdentifier & \\ \hline
 \multicolumn{4}{l}{\small \footnotesize(*) DataCite sub-properties type=bibcode, relationType=IsSupplementTo} \\
 \end{tabular}
 
-\begin{tabular}{|p{3cm}|p{3cm}|p{3cm}|p{5cm}|} \hline
+\paragraph{}
+\begin{tabular}{|p{2.8cm}|p{3cm}|p{3cm}|p{4cm}|} \hline
 \multicolumn{4}{|l|}{\textbf{rights}} \\ \hline
-rights   & rights & Rights& license
-          The right element accepts free text. However, it is preferable to provide a machine-readable License (*)
+rights   & rights & Rights& 
+          The right element accepts free text. However, machine-readable (*) license is preferable
          \\ \hline
-URI     &  rights\_uri& rightsURI & license URL\\ \hline
-        & & rightsIdentifier & standard license name .ex CC-by.
-         Copyright is accepted by FAIR principle. But copyright is only a link to the data producer. It gives the contact point to any users who would like to use data. Copyright is more simple to implement for data-centre that provides a copy of original resource, but its use is not well integrated in an interoperable workflow.
-         \\ \hline
+URI     &  rights\_uri& rightsURI & The License URL\\ \hline
+%        & & rightsIdentifier & The Standard license name .ex CC-by.
+%         Copyright is accepted by FAIR principle. But copyright is only a link to the data producer. It gives the contact point to any users who would like to use data. Copyright is more simple to implement for data-centre that provides a copy of original resource, but its use is not well integrated in an interoperable workflow.
+%         \\ \hline
 \multicolumn{4}{p{\textwidth}}{\small \footnotesize(*) See SPDX list \url{https://spdx.org/licenses/} or Creative Commons licenses \url{https://creativecommons.org}}
 \end{tabular}\\
 %\caption{Expected metadata (VOResource) with their equivalent in Datacite schema (version 4.4) to provide Data Origin in the registry.}
