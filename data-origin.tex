@@ -176,18 +176,22 @@ DataCite's.
 \subsection{Data Origin and Provenance}
 %The Provenance \citep{2020ivoa.spec.0411S} and Dataset Data Models can
 %be used to express Data Origin.
+Data origins information is intended to be provided in the results of queries. This information can be used to populate steps in a Provenance workflow.
 
-The Provenance Data Model \citep{2020ivoa.spec.0411S} is based on Entities, Agents and Activities as defined in the W3C Provenance model. The model's main focus is the detailed documentation of workflows.
+Dataset Origin (see \ref{sec:dataset-origin}) can be serialized with Entities and Agent. The query information including information such as URL and parameters (see \ref{sec:query-information}) can be set with the configuration extension of the Provenance DM of the Virtual Observatory \citep{2020ivoa.spec.0411S}. 
 
-For the serialisation of ProvDM instances within VOTables, MIVOT \citep{2023ivoa.spec.0620M} is available.  At this point, however, the relatively complex model and many free parameters are obstacles for a wide and direct adoption of ProvDM+MIVOT to represent Data Origin, in particular when compared to the very straightforward mechanisms proposed here.
+
+%The Provenance Data Model \citep{2020ivoa.spec.0411S} is based on Entities, Agents and Activities as defined in the W3C Provenance model. The model's main focus is the detailed documentation of workflows.
+
+%For the serialisation of ProvDM instances within VOTables, MIVOT \citep{2023ivoa.spec.0620M} is available.  At this point, however, the relatively complex model and many free parameters are obstacles for a wide and direct adoption of ProvDM+MIVOT to represent Data Origin, in particular when compared to the very straightforward mechanisms proposed here.
 
 
 %``Last-Step-Provenance'' is a Provenance extension currently under discussion which would define a list of metadata corresponding to Data Origin.  Its output will not be recursive and could be easily serialized in a table.\todo{If we write this here, everyone will ask: Well, so why don't we wait for that?  Perhaps we ought to just drop this?}
-Other initiatives, in working progress, such as ``DatasetDM'', or
-``Last-Step-Provenance'' show the growing interest of adding pieces of
-provenance to published datasets.
-The metadata listed in Data Origin can be a reference for current
-and future models interested by the information.
+%Other initiatives, in working progress, such as ``DatasetDM'', or
+%``Last-Step-Provenance'' show the growing interest of adding pieces of
+%provenance to published datasets.
+%The metadata listed in Data Origin can be a reference for current
+%and future models interested by the information.
 
 \subsection{DALI}
 DALI \citep{2017ivoa.spec.0517D} defines common conventions for all
@@ -239,6 +243,7 @@ last\_update\_date.
 
 
 \subsection{Query information}
+\label{sec:query-information}
 Table~\ref{tab:query-names} lists the metadata items defined here to
 convey query-related information in Data Origin.
 
@@ -256,8 +261,8 @@ particularly important.
 publisher         & Data centre that produced the VOTable & publisher\\ \hline
 %rename 23-nov-2023 version           & Software version (*) & & \\ \hline
 server\_software  & Software version (*) & \\ \hline
-service\_protocol & IVOID of the protocol through which the data was
-retrieved & \\ \hline
+service\_protocol & IVOID of the protocol through which the data was retrieved & \\ \hline
+service\_ivoid    & IVOID of the service through which the data was retrieved  &  \\ \hline
 request           & Full request URL including a query string (**)& \\ \hline
 query             & An input query in a formal language (e.g., ADQL)  & \\ \hline
 % removed in 23-nov-2023
@@ -265,7 +270,7 @@ query             & An input query in a formal language (e.g., ADQL)  & \\ \hlin
 % end
 request\_date     & Query execution date &\\ \hline
 contact           & Email or URL to contact publisher & \\ \hline
-ivoid\_service    & IVOID of the service through which the data was retrieved  &  \\ \hline
+
 \multicolumn{3}{p{\textwidth}}{\vskip 2pt\footnotesize(*) Operators are
 encouraged to follow \citet{note:opid} in this item.} \\
 \multicolumn{3}{p{\textwidth}}{\footnotesize(**) For ``Simple''
@@ -283,6 +288,7 @@ generated a VOTable}
 
 
 \subsection{Dataset Origin}
+\label{sec:dataset-origin}
 Dataset origin complements the query-related information to improve the
 understandability of the underlying data.  Clients should make
 sure that end users can easily access and inspect this information.
@@ -299,7 +305,8 @@ defined here.
 \begin{tabular}{|l|>{\raggedright}p{7cm}|l|}  \hline
 \textbf{\vrule width0pt height 12pt depth 7pt Key} & \textbf{Description} & \textbf{Dublin Core}\\ \hline
 % removed 23-nov-2023 publication\_id    & Dataset identifier that can be used for citation& M  & identifier\\ \hline
-ivoid              & IVOID of underlying data collection   &  \\ \hline
+data\_ivoid        & IVOID of underlying data collection   &  \\ \hline
+ivoid              & (deprecated) use data\_ivoid & \\ \hline
 citation           & Dataset identifier that can be used for citation (e.g. dataset DOI)   & identifier\\ \hline
 reference\_url     & Dataset landing page & \\ \hline % previously landing_page
 % removed in 23-nov-2023
@@ -315,8 +322,8 @@ rights\_uri        & Licence URI (*)  & rights\\ \hline
 rights             & Licence or Copyright text  & rights\\ \hline
 creator            & \raggedright The person(s) mainly involved in the
 creation of the resource; generally, the author(s)
-                    & creator\\ \hline
-editor             & Designation of the medium the originating scholarly publication was
+                   & creator\\ \hline
+journal            & Designation of the medium the originating scholarly publication was
   published in.  In general, that is a journal name.  Common
   abbreviations (ApJ, A\&A, \dots) are encouraged. & \\ \hline
 % removed 15-dec-2023 to use cites or is_derived_from
@@ -405,7 +412,7 @@ RA=28.4&DEC=39.3&SR=1"/>
   <RESOURCE ID="yCat_51610036" name="J/AJ/161/36">
     <DESCRIPTION>117 exoplanets in habitable zone with Kepler DR25</DESCRIPTION>
 
-    <INFO name="ivoid" value="ivo://cds.vizier/j/aj/161/36">
+    <INFO name="data_ivoid" value="ivo://cds.vizier/j/aj/161/36">
         ivoid identifier to link registry
     </INFO>
     <INFO name="publisher" value="CDS">data centre</INFO>
@@ -423,7 +430,7 @@ RA=28.4&DEC=39.3&SR=1"/>
     <INFO name="cites" value="2021AJ....161...36B">
         Reference article
     </INFO>
-    <INFO name="editor" value="Astronomical Journal">
+    <INFO name="journal" value="AJ">
         Journal of the reference article
     </INFO>
     <INFO name="publication_date" value="2021-03-16">
@@ -577,8 +584,9 @@ using Simple Cone Search 1.03 (version 7.294, executed at 2022-10-30)\\
 %\subsection{Data Origin in the VO Version 1.0}
 \subsection{Difference between versions 1.1 and 1.2}
 \begin{itemize}
-	\item New item: \textit{ivoid\_service}
-	\item Move ivoid from Table1 (query) to Table2 (Origin)
+	\item New item: \textit{service\_ivoid}
+	\item Rename ivoid to data\_ivoid (now in Table2 (Origin))
+	\item Rename editor to journal 
 \end{itemize}
 
 \subsection{Difference between versions 1.0 and 1.1}
