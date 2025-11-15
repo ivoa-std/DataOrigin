@@ -79,7 +79,6 @@ The following metadata can be repeated and could follow a controlled vocabulary.
 
 - Author: name or ORCID
 - Organization: name or URL
-- Editor: name or URL
 - Journal: name or URL
 - Datacenter that provides the result: name or URL
 - Contact: email
@@ -115,7 +114,6 @@ For queries on evolving dataset, the version or the date must complete the infor
 |version | Dataset version (or release date) | |
 |service_protocol| Protcol access with version | |
 |request| Request url  | |
-|request_post| (POST Request) POST arguments **new**  | |
 |request_date| Query execution date | |
 |contact| email or URL contact | |
 |landing_page| Dataset landing page | |
@@ -133,12 +131,11 @@ Dataset-origin completes the "Query information" -
 |Publication-id| Dataset identifier that can be used for citation | yes |
 |Curation-level| Controled vocabulary | |
 |Resource-version| Dataset version od last release | |
-|Rights| Licence URI | |
-|Rights-type| Licence type (eg: CC-by, CC-0, private, public) | |
-|Copyrights| Copyright text | |
+|Rights_URI| Licence URI | |
+|Rights| Licence type (eg: CC-by, CC-0, private, public) or copyrights| |
 |Creator| Dataset Author(s) or group | |
 |Publication-ref| Identifier of the original resource that can be an article or the origin Data Center| 
-|Editor| editor name| |
+|Journal or Editor| journal or editor name| |
 |Relation_type | controled vocabulary (VOResource: relationshipType ? ) to specify relation to related resource **new**|
 |related_resource | Original resource **new**|
 |Publication-date| Date of the original publication | |
@@ -150,33 +147,6 @@ eg: bibcode:...,
     ror:...
 
 Serialisation example:  &lt;info&gt; tag makes the jobs. see <a href='tests/J_AJ_161_36_table8.xml'>SCS example</a>
-
-
-- Complex output involving **several tables** (eg: TAP query, ObsCore result)
-
-Dataset-origin depends on each table used for the output. Datamodels like Last-step -Provenance or DatasetDM allows to gather the metadata.
-
-DatasetDM Example:
-
-|meta-data| Description| Mandatory |
-|---      |:-:  |:-: |
-|dataset:productType|||
-|dataset:productSubType| controled vocabulary||
-|dataset:DataID.datasetDID| dataset ivoid|yes|
-|dataset:DataID.title| dataset title||
-|dataset:DataID.creationType| type of resource ||
-|dataset:DataID.date| Publication date of original dataset/article||
-|dataset:Party.name| (first)Author | |
-|dataset:Curation.publisherDID| data-center identifier (ivoid)|yes|
-|dataset:Curation.rights| rights text| |
-|dataset:Curation.releaseDate| Data-center publication date|yes|
-|party.Organisation.email|Data-center contact||
-|dataset:Curation.doi| Dataset DOI| |
-|dataset:Curation.bibcode| Dataset bibcode||
-
-Serialisation example:  DatasetDM serialisation. see <a href='tests/tap.xml'>TAP example</a>
-
-(see also: <a href='https://wiki.ivoa.net/twiki/pub/IVOA/InterOpOct2022DM/IVOA-DMTAP-VizieR.pdf'>datasetDM in TAP (ivoa-talk)</a>
 
 
 
