@@ -27,7 +27,7 @@ SOURCES = $(DOCNAME).tex
 
 # List of image files to be included in submitted package (anything that
 # can be rendered directly by common web browsers)
-FIGURES =fig-ext-ids.pdf
+FIGURES =fig-ext-ids.pdf voprov_example.png
 
 # List of PDF figures (figures that must be converted to pixel images to
 # work in web browsers).

@@ -3,6 +3,7 @@
 \lstset{flexiblecolumns=true}
 \usepackage{todonotes}
 \usepackage{array}
+\usepackage{float}
 \marginparwidth=4cm
 
 \title{Data Origin in the VO}
@@ -28,7 +29,7 @@
 
 \begin{document}
 \begin{abstract}
-Data Origin in the VO specifies a set of metadata items that define basic
+Data Origin in the VO identifies a set of metadata items that define basic
 provenance information, as well as their representation in documents produced
 by Virtual Observatory (VO) services.  This will improve traceability for VO
 users, help them to understand result sets and facilitate data reuse and citation.
@@ -129,9 +130,9 @@ might be useful.
 
 \section{State of the Art}
 
-Neither VOTable \citep{2019ivoa.spec.1021O} nor IVOA data access protocols at this point provide standard facilities for conveying Data Origin information. While protocols such as TAP \citep{2019ivoa.spec.0927D} have standard interfaces to retrieve table metadata (e.g., unit, type and description of columns) or metadata on service endpoints (``capabilities'') by virtue of providing VOSI \citep{2017ivoa.spec.0524G} endpoints, for basic metadata like authors or publication dates,  clients have to consult the VO Registry.  Even that may be difficult, because you cannot in general obtain its IVOA identifier from a service itself.
+Neither VOTable \citep{2025ivoa.spec.0116O} nor IVOA data access protocols at this point provide standard facilities for conveying Data Origin information. While protocols such as TAP \citep{2019ivoa.spec.0927D} have standard interfaces to retrieve table metadata (e.g., unit, type and description of columns) or metadata on service endpoints (``capabilities'') by virtue of providing VOSI \citep{2017ivoa.spec.0524G} endpoints, for basic metadata like authors or publication dates,  clients have to consult the VO Registry.  Even that may be difficult, because you cannot in general obtain its IVOA identifier from a service itself.
 
-HiPS \citep{2017ivoa.spec.0519F} is a more recent protocol which includes for each dataset a list of standardized metadata. HiPS metadata includes authors, publication year, data centre identifier or licenses.
+HiPS \citep{2017ivoa.spec.0519F} is a protocol which includes for each dataset a list of standardized metadata. HiPS metadata includes authors, publication year, data centre identifier or licenses.
 
 \begin{figure}
 \centering
@@ -259,10 +260,10 @@ For queries against evolving datasets, the request\_date item clearly is
 particularly important.
 
 
-\begin{table}
+\begin{table}[h]
 \hbox to\textwidth{\hss
 \begin{tabular}{|l|>{\raggedright}p{7cm}|l|}  \hline
-\textbf{\vrule width0pt height 12pt depth 7pt Key} & \textbf{Description} & \textbf{Dublin Core}\\ \hline
+\textbf{\vrule width0pt height 12pt depth 7pt Item} & \textbf{Description} & \textbf{Dublin Core}\\ \hline
 % removed ivoid             & IVOID of underlying data collection  & R &  \\ \hline
 publisher         & Data centre that produced the VOTable & publisher\\ \hline
 %rename 23-nov-2023 version           & Software version (*) & & \\ \hline
@@ -285,12 +286,10 @@ application/x-www-form-urlencoded form of the query parameters in the
 query part of the URL here.
 More complex scenarios like UWS are not covered by this document.}
 \end{tabular}\hss}
-\caption{\xmlel{INFO} names available for specifying the query that
-generated a VOTable}
+%\caption{\xmlel{INFO} names available for specifying the query that generated a VOTable}
+\caption{\xmlel{INFO} names for specifying the query that generated a VOTable} % shorter to let place to put the table2
 \label{tab:query-names}
 \end{table}
-
-
 
 
 \subsection{Dataset Origin}
@@ -302,14 +301,13 @@ If the resource is also described in the Registry, care
 must be taken that the in-response metadata reflects the metadata
 available there at the time the response is produced.
 
-
 Table~\ref{tab:origin-names} lists the origin-related metadata items
 defined here.
 
-\begin{table}
+\begin{table}[!h]
 \hbox to\textwidth{\hss
 \begin{tabular}{|l|>{\raggedright}p{7cm}|l|}  \hline
-\textbf{\vrule width0pt height 12pt depth 7pt Key} & \textbf{Description} & \textbf{Dublin Core}\\ \hline
+\textbf{\vrule width0pt height 12pt depth 7pt Item} & \textbf{Description} & \textbf{Dublin Core}\\ \hline
 % removed 23-nov-2023 publication\_id    & Dataset identifier that can be used for citation& M  & identifier\\ \hline
 data\_ivoid        & IVOID of underlying data collection   &  \\ \hline
 ivoid              & (deprecated) use data\_ivoid & \\ \hline
@@ -372,21 +370,27 @@ In this document, we focus on a basic serialization that allows data
 providers to describe individual tables.
 This is particularly suitable for protocols like Simple Cone Search.
 
-The basic serialization uses INFO tags to populate Data Origin (see the example of a ConeSearch result in appendix  \ref{sec:appendixA}).
+%The basic serialization uses INFO tags to populate Data Origin (see the example of a ConeSearch result in appendix  \ref{sec:appendixA}).
+\paragraph{The basic serialization} uses INFO tags to populate DataOrigin using the 'name' attribute with the items listed in Table\ref{tab:origin-names} or Table\ref{tab:query-names} (see the example of a ConeSearch result in appendix  \ref{sec:appendixA}). 
+%uses INFO tags to populate Data Origin items using the attribute 'name' (see the example of a ConeSearch result in appendix  \ref{sec:appendixA}).
 INFO tags are allowed in VOTable under \xmlel{VOTABLE} or in \xmlel{RESOURCE} elements.
 It is expressly allowed to supply data origin in individual
 \xmlel{TABLE} or \xmlel{RESOURCE} elements in more complex VOTables.
 
+For best practice, the global items listed in Table \ref{tab:query-names} should be placed directly at the root of the VOTable document. If a VOTable document contains several resources or tables, the items listed in Table \ref{tab:origin-names} can be placed in their respective resources or tables. 
+
+As a service to human readers, it is recommended to put descriptions, possibly derived from definitions provided in this document, into the bodies of the INFO elements.
+
 This specification does not at this point constrain the multiplicities of individual INFO items, and clients should not fail hard if any given INFO item occurs multiple times.
 
-Complex queries (for instance, resulting from ADQL JOIN-s) need an advanced output serialization to gather the full metadata of all contributing resources.
+
+
+\paragraph{Complex queries} (for instance, resulting from ADQL JOIN-s) need an advanced output serialization to gather the full metadata of all contributing resources.
 Mechanisms to manage this requirement are being developed in the IVOA
 (MIVOT).
 The mechanisms defined here are generally still applicable in these
 cases, but the authors acknowledge that they are certainly stretched to
 their limits in such cases.
-
-As a service to human readers, it is recommended to put descriptions, possibly derived from definitions provided in this document, into the bodies of the INFO elements.
 
 
 %\section{Data Origin in Registry}  REMOVE 2025-11-03
@@ -401,8 +405,8 @@ As a service to human readers, it is recommended to put descriptions, possibly d
 \section{Appendix, Cone search serialization}\label{sec:appendixA}
 Simple Conesearch with its VOTable serialization. Data Origin are specified using  INFO.
 \begin{lstlisting}[basicstyle=\footnotesize\ttfamily]
-<VOTABLE version="1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns="http://www.ivoa.net/xml/VOTable/v1.1" xsi:schemaLocation=...>
+<VOTABLE version="1.5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="http://www.ivoa.net/xml/VOTable/v1.3" xsi:schemaLocation=...>
 
   <INFO name="server_protocol" value="ivo://ivoa.net/std/ConeSearch"/>
   <INFO name="request_date" value="2022-10-30T12:08:00"
@@ -581,7 +585,8 @@ using Simple Cone Search 1.03 (version 7.294, executed at 2022-10-30)\\
 
 \section{Appendix, DataOrigin and ProvDM}\label{sec:appendixD}
 This is an example of Provenance extracted from a SimpleConeSearch result containing DataOrigin.
-The figure is a graphical representation of provenance created using the VOPROV Python package. 
+The figure is a graphical representation of provenance created using the VOPROV Python package \footnote{\url{
+	https://github.com/sanguillon/voprov}}. 
 
 \begin{figure}[htbp]
 	\includegraphics[width=1.2\textwidth]{voprov_example.png}
