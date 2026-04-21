@@ -1,4 +1,4 @@
-[![PDF-Preview](https://img.shields.io/badge/PDF-Preview-blue)](https://github.com/gilleslandais/ivoa-dcp-data-origin/releases/download/auto-pdf-preview/data-origin-draft.pdf)
+[![PDF-Preview](https://img.shields.io/badge/PDF-Preview-blue)](https://github.com/ivoa-std/DataOrigin/releases/download/auto-pdf-preview/data-origin-draft.pdf)
 
 
 # Data Origin in the VO
